@@ -519,6 +519,22 @@ all required dependencies.
 - `src` - image source
 - `test` - image smoke test
 
+### Building Mutliplatform Images
+
+These instructions were followed on an M1 Mac running Docker Desktop for Mac.  See also [this article](https://www.docker.com/blog/faster-multi-platform-builds-dockerfile-cross-compilation-guide/)
+
+1. Go to the `src` directory
+2. Setup multiplatform builder
+```
+docker buildx create --use
+```
+3. Create the multiplatform image
+```
+TAG=v1
+docker buildx build --platform=linux/amd64,linux/arm64 . -t ghcr.io/hatmarch/nix-devcontainer:$TAG --push
+```
+
+
 ### Testing
 
 For basic validity testing you should run `make test`, which will build test
